@@ -1,3 +1,4 @@
+import os
 import redis
 import csv
 import pandas as pd
@@ -375,17 +376,17 @@ def correlation_matrix(df):
 if __name__ == "__main__":
     # Inform that the main block is being executed
     print("Main block executed")
-    host = 'redis-17710.c15.us-east-1-4.ec2.redns.redis-cloud.com'
-    port = 17710
-    password = 'password'
-    
+    host = os.environ['redis_host']
+    port = os.environ['redis_port']
+    password = os.environ['redis_password']
+
     # Initialize dictionary to store retrieved data
     all_data = {}
     
     # Create RedisHelper instance and populate Redis with data from CSV
     print("Setting data...")
     redis_client = Redis(host, port, password)
-    #redis_client.set_data(csv_path, chunk_size)
+    redis_client.set_data()
     
     # Retrieve data from Redis and convert it to a DataFrame
     print("Grabbing Data...")
